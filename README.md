@@ -1,7 +1,7 @@
 # M1p13meanKennyMinosoa
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.20.
-
+### App link: https://bespoke-khapse-210a7f.netlify.app/login
 ## Development server
 
 To start a local development server, run:
