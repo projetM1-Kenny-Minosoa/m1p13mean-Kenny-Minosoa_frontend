@@ -1,10 +1,37 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './auth/login/login.component';
-import { SignupComponent } from './auth/signup/signup.component';
+import { VendorGuard } from './core/guards/vendor.guard';
 
-export const appRoutes: Routes = [
-  { path: 'auth/login', component: LoginComponent },
-  { path: 'auth/signup', component: SignupComponent },
-  { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
-  { path: '**', redirectTo: 'auth/login' }
+export const routes: Routes = [
+  {
+    path: 'login',
+    loadComponent: () =>
+      import('./auth/login/login.component').then(m => m.LoginComponent)
+  },
+  {
+    path: 'register',
+    loadComponent: () =>
+      import('./auth/register/register.component').then(m => m.RegisterComponent)
+  },
+
+  {
+    path: 'admin',
+    loadComponent: () =>
+      import('./admin-dashboard/admin-dashboard.component').then(m => m.AdminDashboardComponent)
+  },
+
+  {
+    path: 'client',
+    loadComponent: () =>
+      import('./client-dashboard/client-dashboard.component').then(m => m.ClientDashboardComponent)
+  },
+
+  {
+    path: 'vendor',
+    canActivate: [VendorGuard],
+    loadComponent: () =>
+      import('./vendor-dashboard/vendor-dashboard.component').then(m => m.VendorDashboardComponent)
+  },
+
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '**', redirectTo: 'login' }
 ];
