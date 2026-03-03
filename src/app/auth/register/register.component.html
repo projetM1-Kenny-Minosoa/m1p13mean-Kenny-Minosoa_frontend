@@ -1,0 +1,21 @@
+<div class="container">
+  <h2>S'inscrire</h2>
+
+  <form [formGroup]="registerForm" (ngSubmit)="submit()">
+    <input type="text" formControlName="name" placeholder="Name">
+    <input type="email" formControlName="email" placeholder="Email">
+    <input type="password" formControlName="password" placeholder="Password">
+
+    <select formControlName="role">
+      <option value="client">Client</option>
+      <option value="vendor">Vendeur</option>
+    </select>
+
+    <button type="submit">S'inscrire</button>
+    <p *ngIf="error" style="color:red">{{ error }}</p>
+
+    <button type="button" (click)="goToLogin()">Se connecter</button>
+  </form>
+</div>
+
+<app-footer></app-footer>

@@ -1,19 +1,16 @@
-<div class="login-container">
-  <mat-card>
-    <h2>Login</h2>
-    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
-      <mat-form-field appearance="fill" class="full-width">
-        <mat-label>Email</mat-label>
-        <input matInput formControlName="email" type="email" required>
-      </mat-form-field>
+<div class="container">
+  <h2>Se connecter</h2>
 
-      <mat-form-field appearance="fill" class="full-width">
-        <mat-label>Password</mat-label>
-        <input matInput formControlName="password" type="password" required>
-      </mat-form-field>
+  <form [formGroup]="loginForm" (ngSubmit)="submit()">
+    <input type="text" formControlName="name" placeholder="Nom">
+    <input type="password" formControlName="password" placeholder="Mot de passe">
 
-      <button mat-raised-button color="primary" type="submit">Login</button>
-    </form>
-    <p>Pas encore de compte? <a routerLink="/auth/signup">Inscription</a></p>
-  </mat-card>
+    <button type="submit">Connexion</button>
+  </form>
+
+  <p *ngIf="error" class="error">{{ error }}</p>
+
+  <button type="button" (click)="goToRegister()">Créer un compte</button>
 </div>
+
+<app-footer></app-footer>

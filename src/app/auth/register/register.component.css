@@ -9,15 +9,14 @@ html, body {
 }
 
 .container {
-  width: 320px;
+  width: 350px;
   padding: 40px;
   background-color: rgba(255, 255, 255, 0.9);
   border-radius: 10px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   margin: auto; 
   text-align: center;
-  margin-top: 10px;
-  margin-bottom: 100px;
+  margin-bottom: 60px; 
 }
 
 .container h2 {
@@ -25,7 +24,8 @@ html, body {
   color: #1c3c91;
 }
 
-.container input {
+.container input,
+.container select {
   width: 100%;
   padding: 12px;
   margin: 10px 0;
@@ -52,20 +52,33 @@ html, body {
   background-color: #1450a0;
 }
 
+.container p[style*="color:red"] {
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.register-link {
+  margin-top: 15px;
+}
+
+.register-link a {
+  color: #1c3c91;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.register-link a:hover {
+  text-decoration: underline;
+}
+
+app-footer {
+  margin-top: auto;
+}
+
 .container button[type="button"] {
   background-color: #6fb1fc;
 }
 
 .container button[type="button"]:hover {
   background-color: #5aa0e0;
-}
-
-.container .error {
-  color: red;
-  font-size: 14px;
-  margin-top: 10px;
-}
-
-app-footer {
-  margin-top: auto;
 }
