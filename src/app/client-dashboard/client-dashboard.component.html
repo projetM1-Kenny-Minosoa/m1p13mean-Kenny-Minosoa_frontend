@@ -1,0 +1,177 @@
+<app-navbar></app-navbar>
+
+<div class="container">
+
+  <h2 class="page-title">Profitez de nos offres</h2>
+
+  <!-- ================= BOUTIQUES ================= -->
+  <h3 class="section-title">Nos Boutiques</h3>
+
+  <div *ngFor="let shop of shops" class="shop-card">
+
+    <h3>{{ shop.name }}</h3>
+    <p class="category">{{ shop.category }}</p>
+
+    <div class="products">
+
+      <div *ngFor="let product of shop.products" class="product-card">
+
+        <img *ngIf="product.image"
+         [src]="product.image"
+         width="120">
+
+        <div class="product-info">
+          <p class="product-name">{{ product.name }}</p>
+          <p class="product-price">{{ product.price }} Ar</p>
+        </div>
+
+        <input type="number"
+               [(ngModel)]="product.quantity"
+               min="0"
+               placeholder="Qté">
+      </div>
+
+    </div>
+
+    <button class="primary-btn"
+            (click)="openOrderForm(shop)">
+      Passer commande
+    </button>
+
+  </div>
+
+
+  <!-- ================= MODAL PASSER COMMANDE ================= -->
+  <div *ngIf="showOrderForm" class="modal">
+
+    <div class="modal-content">
+
+      <h3>Informations de livraison</h3>
+
+      <label>Contact</label>
+      <input type="text"
+             [(ngModel)]="orderFormData.contact"
+             placeholder="Numéro téléphone">
+
+      <label>Adresse de livraison</label>
+      <input type="text"
+             [(ngModel)]="orderFormData.address"
+             placeholder="Votre adresse">
+
+      <label>Date de livraison</label>
+      <input type="date"
+             [(ngModel)]="orderFormData.deliveryDate">
+
+      <label>Mode de paiement</label>
+      <select [(ngModel)]="orderFormData.paymentMethod">
+        <option value="Cash">Cash</option>
+      </select>
+
+      <div class="modal-buttons">
+        <button class="primary-btn"
+                (click)="confirmOrder()">
+          Confirmer
+        </button>
+
+        <button class="danger-btn"
+                (click)="resetForm()">
+          Annuler
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- ================= HISTORIQUE ================= -->
+  <h3 class="section-title">Historique des commandes</h3>
+
+  <div *ngIf="orders.length === 0" class="empty">
+    Aucune commande pour le moment.
+  </div>
+
+  <div *ngFor="let order of orders"
+       class="order-card">
+
+    <div class="order-header">
+      <h4>{{ getShopName(order.shopId) }}</h4>
+
+      <span class="status"
+            [ngClass]="{
+              'pending': order.status === 'En attente',
+              'confirmed': order.status === 'Confirmée',
+              'delivered': order.status === 'Livrée'
+            }">
+        {{ order.status }}
+      </span>
+    </div>
+
+    <div class="order-body">
+
+      <p><strong>Total :</strong> {{ order.total }} Ar</p>
+      <p><strong>Contact :</strong> {{ order.contact }}</p>
+      <p><strong>Adresse :</strong> {{ order.address }}</p>
+      <p><strong>Date livraison :</strong> {{ order.deliveryDate }}</p>
+
+      <div class="product-list">
+        <p *ngFor="let p of order.products">
+          • {{ p.name }} (x{{ p.quantity }})
+        </p>
+      </div>
+
+    </div>
+
+    <div class="order-actions">
+      <button class="primary-btn"
+              (click)="editOrder(order)">
+        Modifier
+      </button>
+
+      <button class="danger-btn"
+              (click)="deleteOrder(order.id)">
+        Supprimer
+      </button>
+    </div>
+
+  </div>
+
+
+  <!-- ================= MODAL MODIFICATION ================= -->
+  <div *ngIf="editingOrder" class="modal">
+
+    <div class="modal-content">
+
+      <h3>Modifier la commande</h3>
+
+      <label>Contact</label>
+      <input type="text"
+             [(ngModel)]="orderFormData.contact">
+
+      <label>Adresse</label>
+      <input type="text"
+             [(ngModel)]="orderFormData.address">
+
+      <label>Date de livraison</label>
+      <input type="date"
+             [(ngModel)]="orderFormData.deliveryDate">
+
+      <div class="modal-buttons">
+        <button class="primary-btn"
+                (click)="saveEdit()">
+          Sauvegarder
+        </button>
+
+        <button class="danger-btn"
+                (click)="editingOrder = null">
+          Annuler
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<app-footer></app-footer>
