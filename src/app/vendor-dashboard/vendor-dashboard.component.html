@@ -1,0 +1,108 @@
+<app-navbar></app-navbar>
+
+<div class="container">
+
+  <h2>Dashboard vendeur, {{ vendorName }}</h2>
+
+  <div *ngIf="!shop" class="card">
+    <h3>Créer votre boutique</h3>
+    <input #shopName type="text" placeholder="Nom boutique">
+    <input #shopCategory type="text" placeholder="Catégorie">
+    <button (click)="createShop(shopName.value, shopCategory.value)">
+      Créer
+    </button>
+  </div>
+
+  <div *ngIf="shop" class="card">
+
+    <h3>Ma Boutique : {{ shop.name }}</h3>
+
+    <h4>Ajouter produit</h4>
+
+    <input type="text" [(ngModel)]="newProduct.name" placeholder="Nom">
+    <input type="number" [(ngModel)]="newProduct.price" placeholder="Prix">
+
+    <input type="file"accept="image/*"(change)="onImageSelected($event)">
+
+    <div *ngIf="newProduct.image">
+      <img [src]="newProduct.image" width="100" class="preview">
+    </div>
+
+    <button (click)="addProduct()">Ajouter</button>
+
+    <h4>Mes produits</h4>
+
+    <div *ngFor="let product of shop.products" class="product-card">
+      <img *ngIf="product.image" [src]="product.image" width="60">
+      <p>{{ product.name }} - {{ product.price }} Ar</p>
+
+      <button (click)="startEdit(product)">Modifier</button>
+      <button (click)="deleteProduct(product.id)">Supprimer</button>
+    </div>
+  </div>
+
+  <div *ngIf="editingProduct" class="modal">
+    <div class="modal-content">
+      <h3>Modifier produit</h3>
+
+      <input type="text" [(ngModel)]="editingProduct.name">
+      <input type="number" [(ngModel)]="editingProduct.price">
+      <input type="file"accept="image/*"(change)="onEditImageSelected($event)">
+
+      <div *ngIf="editingProduct?.image">
+        <img [src]="editingProduct?.image" width="100" class="preview">
+      </div>
+
+      <button (click)="saveEdit()">Sauvegarder</button>
+      <button (click)="editingProduct = null">Annuler</button>
+    </div>
+  </div>
+
+  <div *ngIf="shop" class="card">
+    <h3>Commandes des clients</h3>
+
+    <div *ngIf="orders.length === 0">
+      Aucune commande pour le moment.
+    </div>
+
+    <div *ngFor="let order of orders" class="order-card">
+
+      <!-- HEADER -->
+      <div class="order-header">
+        <h4>Client : {{ order.clientName }}</h4>
+
+        <span class="status"
+              [ngClass]="{
+                'pending': order.status === 'En attente',
+                'confirmed': order.status === 'Confirmée',
+                'delivered': order.status === 'Livrée'
+              }">
+          {{ order.status }}
+        </span>
+      </div>
+
+      <div class="order-info">
+        <p><strong>Contact :</strong> {{ order.contact }}</p>
+        <p><strong>Adresse :</strong> {{ order.address }}</p>
+        <p><strong>Date livraison :</strong> {{ order.deliveryDate }}</p>
+        <p><strong>Total :</strong> {{ order.total }} Ar</p>
+      </div>
+
+      <div class="product-list">
+        <p *ngFor="let p of order.products">
+          • {{ p.name }} (x{{ p.quantity }})
+        </p>
+      </div>
+
+      <div class="status-buttons">
+        <button (click)="changeStatus(order,'En attente')">En attente</button>
+        <button (click)="changeStatus(order,'Confirmée')">Confirmée</button>
+        <button (click)="changeStatus(order,'Livrée')">Livrée</button>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<app-footer></app-footer>
