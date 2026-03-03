@@ -1,25 +1,17 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-footer',
-  standalone: true,
+  standalone: true,   
+  imports: [CommonModule],
   template: `
     <footer class="footer">
-      <p><strong>Kenny Johary</strong> et <strong>Minosoa Randrianatoandro</strong></p>
-      <p class="promo">Master I promotion 13</p>
+      <p>RANDRIA HARISON Kenny Johary et RANDRIANATOANDRO Minosoa</p>
+      <p>Master I promotion 13</p>
+      <p>©2026</p>
     </footer>
   `,
-  styles: [`
-    .footer {
-      text-align: center;
-      padding: 20px;
-      margin-top: 40px;
-    }
-
-    .promo {
-      margin-top: 8px;
-      font-size: 14px;
-    }
-  `]
+  styleUrls: ['./footer.component.css']
 })
 export class FooterComponent {}
