@@ -1,0 +1,84 @@
+<app-navbar></app-navbar>
+
+<div class="dashboard">
+
+  <h1>Admin Dashboard</h1>
+
+  <!-- USERS -->
+  <div class="card">
+    <h2>Liste des utilisateurs</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Email</th>
+          <th>Rôle</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td>{{ user.name }}</td>
+          <td>{{ user.email }}</td>
+          <td>
+            <span class="role" [ngClass]="user.role">
+              {{ user.role }}
+            </span>
+          </td>
+          <td>
+            <button class="delete" (click)="deleteUser(user.id)">Supprimer</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SHOPS -->
+  <div class="card">
+    <h2>Liste des boutiques</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Catégorie</th>
+          <th>Produits</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let shop of shops">
+          <td>{{ shop.name }}</td>
+          <td>{{ shop.category }}</td>
+          <td>{{ shop.products?.length }}</td>
+          <td>
+            <button class="delete" (click)="deleteShop(shop.id)">Supprimer</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ORDERS -->
+  <div class="card">
+    <h2>Historique des commandes</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Client</th>
+          <th>Boutique</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of orders">
+          <td>{{ order.clientName }}</td>
+          <td>{{ order.shopId }}</td>
+          <td>{{ order.total }} Ar</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<app-footer></app-footer>
